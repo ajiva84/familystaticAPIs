@@ -13,7 +13,32 @@ class FamilyStructure:
         self.last_name = last_name
 
         # example list of members
-        self._members = []
+        self._members = [
+            {
+                "id": self._generateId(),
+                "first_name": "John",
+                "last_name": last_name,
+                "age": 33,
+                "luck_numbers": [7, 13, 22]
+
+            },
+            {
+                "id": self._generateId(),
+                "first_name": "Jane",
+                "last_name": last_name,
+                "age": 35,
+                "luck_numbers": [10, 14, 3]
+            },
+            {
+                "id": self._generateId(),
+                "first_name": "Jimmy",
+                "last_name": last_name,
+                "age": 5,
+                "luck_numbers": [1]
+
+            }
+        ]
+
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -21,15 +46,40 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        if not hasattr(member, 'id'):
+            member["id"] = self._generateId()
+        member["last_name"] = self.last_name
+        self._members.append(member)
+        return self._members
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
+        status = ""
+        try:
+            for i,x in enumerate(self_members):
+                if x.id == id:
+                    self._members.pop(i)
+            status = "sucessfully deleted member."
+        except:
+            status= "something went wrong. Couldn't delete member."
+        
+        return status
+
+    
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
+        member = {}
+        try:
+            for x in self._members:
+                if x["id"] == id:
+                    member = x
+        except:
+            member = {
+                "status": "couldn't find the member"
+            }
+        
+        return member
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):

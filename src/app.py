@@ -26,17 +26,74 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/members', methods=['GET'])
-def handle_hello():
+def handle_get_members():
+    status= 200
+    try:
+        # this is how you can use the Family datastructure by calling its methods
+        members = jackson_family.get_all_members()
+        response_body = members
 
-    # this is how you can use the Family datastructure by calling its methods
-    members = jackson_family.get_all_members()
-    response_body = {
-        "hello": "world",
-        "family": members
-    }
+    except:
 
+        members = {
+            "couldn't find the member"
+        }
+        Status = 500
+    return jsonify(members), status
 
-    return jsonify(response_body), 200
+@app.route('/members/<int:members_id>', methods=['GET'])
+def handle_get_specific_member(members_id):
+    status= 200
+    try:
+        # this is how you can use the Family datastructure by calling its methods
+        members = jackson_family.get_member(members_id)
+        response_body = members
+
+    except:
+
+        response_body = {
+            "couldn't find the member"
+        }
+        Status = 500
+    
+    return jsonify(response_body), status
+
+@app.route('/member', methods=['POST'])
+
+def handle_add_a_member():
+    try:
+        data = request.json
+        print(data)
+        status= 200
+        # this is how you can use the Family datastructure by calling its methods
+        members = jackson_family.add_member(data)
+        response_body = members
+
+    except:
+
+        response_body = {
+            "couldn't find the member"
+        }
+        Status = 500
+    
+    return jsonify(response_body), status
+
+@app.route('/member/<int:members_id>', methods=['DELETE'])
+def handle_delete_a_member(members_id):
+    try:
+        status= 200
+        # this is how you can use the Family datastructure by calling its methods
+        members = jackson_family.delete_member(memebers_id)
+        response_body = members
+
+    except:
+
+        response_body = {
+            "couldn't find the member"
+        }
+        Status = 500
+    
+    return jsonify(response_body), status
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
