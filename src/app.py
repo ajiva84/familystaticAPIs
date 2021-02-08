@@ -41,12 +41,12 @@ def handle_get_members():
         Status = 500
     return jsonify(members), status
 
-@app.route('/members/<int:members_id>', methods=['GET'])
-def handle_get_specific_member(members_id):
+@app.route('/member/<int:member_id>', methods=['GET'])
+def handle_get_specific_member(member_id):
     status= 200
     try:
         # this is how you can use the Family datastructure by calling its methods
-        members = jackson_family.get_member(members_id)
+        members = jackson_family.get_member(member_id)
         response_body = members
 
     except:
@@ -59,7 +59,6 @@ def handle_get_specific_member(members_id):
     return jsonify(response_body), status
 
 @app.route('/member', methods=['POST'])
-
 def handle_add_a_member():
     try:
         data = request.json
