@@ -50,7 +50,6 @@ def handle_get_specific_member(member_id):
         response_body = members
 
     except:
-
         response_body = {
             "couldn't find the member"
         }
@@ -77,12 +76,12 @@ def handle_add_a_member():
     
     return jsonify(response_body), status
 
-@app.route('/member/<int:members_id>', methods=['DELETE'])
-def handle_delete_a_member(members_id):
+@app.route('/member/<int:member_id>', methods=['DELETE'])
+def handle_delete_a_member(member_id):
     try:
         status= 200
         # this is how you can use the Family datastructure by calling its methods
-        members = jackson_family.delete_member(memebers_id)
+        members = jackson_family.delete_member(member_id)
         response_body = members
 
     except:

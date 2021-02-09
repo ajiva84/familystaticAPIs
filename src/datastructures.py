@@ -46,7 +46,7 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        if not hasattr(member, 'id'):
+        if "id" not in member:
             member["id"] = self._generateId()
         member["last_name"] = self.last_name
         self._members.append(member)
@@ -56,10 +56,12 @@ class FamilyStructure:
         # fill this method and update the return
         status = ""
         try:
-            for i,x in enumerate(self_members):
-                if x.id == id:
+            for i,x in enumerate(self._members):
+                if x["id"] == id:
                     self._members.pop(i)
-            status = "sucessfully deleted member."
+            status = { 
+                        "done": True
+                            }
         except:
             status= "something went wrong. Couldn't delete member."
         
